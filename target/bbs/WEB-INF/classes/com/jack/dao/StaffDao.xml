@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jack.dao.StaffDao">
+
+    <!--    开启二级缓存-->
+<!--    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>-->
+
+
+    <!--    查询所有正式员工&数量-->
+    <resultMap id="Staff1" type="Staff">
+        <result property="id" column="sId"/>
+        <result property="name" column="sname"/>
+        <result property="phone" column="sphone"/>
+        <association property="departmentId" javaType="Department">
+            <result property="id" column="dId"/>
+            <result property="name" column="dname"/>
+        </association>
+        <association property="jobId" javaType="Job">
+            <result property="id" column="jId"/>
+            <result property="name" column="jname"/>
+        </association>
+    </resultMap>
+    <select id="showSeletedStaffByPage" parameterType="map" resultMap="Staff1">
+        select staff.id sId, staff.name sname, gender, identityId, `from`, org, home, staff.phone sphone, qualif1, qualif2, university, major, enterTime, workType, department.id dId, job.id jId, department.name dname, job.name jname
+        from `staff`,`department`,`job`
+        <where>
+            staff.departmentId = department.id and staff.jobId = job.id
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+        order by staff.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <select id="showSelectStaffByPageCount" parameterType="map" resultType="int">
+        select count(staff.id) from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    查询指定部门正式员工&数量-->
+    <resultMap id="Staff2" type="Staff">
+        <result property="id" column="sId"/>
+        <result property="name" column="sname"/>
+        <result property="phone" column="sphone"/>
+        <association property="departmentId" javaType="Department">
+            <result property="id" column="dId"/>
+            <result property="name" column="dname"/>
+        </association>
+        <association property="jobId" javaType="Job">
+            <result property="id" column="jId"/>
+            <result property="name" column="jname"/>
+        </association>
+    </resultMap>
+    <select id="showSeletedStaffByDepartmentByPage" parameterType="map" resultMap="Staff2">
+        select staff.id sId, staff.name sname, gender, identityId, `from`, org, home, staff.phone sphone, qualif1, qualif2, university, major, enterTime, workType, department.id dId, job.id jId, department.name dname, job.name jname
+        from `staff`,`department`,`job`
+        <where>
+            staff.departmentId = department.id and staff.jobId = job.id
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="departmentId != null and departmentId != 0">
+                and staff.departmentId = #{departmentId}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+        order by staff.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <select id="showSeletedStaffByDepartmentByPageCount" parameterType="map" resultType="int">
+        select count(staff.id) from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="departmentId != null and departmentId != 0">
+                and staff.departmentId = #{departmentId}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    查询指定岗位正式员工&数量-->
+    <resultMap id="Staff3" type="Staff">
+        <result property="id" column="sId"/>
+        <result property="name" column="sname"/>
+        <result property="phone" column="sphone"/>
+        <association property="departmentId" javaType="Department">
+            <result property="id" column="dId"/>
+            <result property="name" column="dname"/>
+        </association>
+        <association property="jobId" javaType="Job">
+            <result property="id" column="jId"/>
+            <result property="name" column="jname"/>
+        </association>
+    </resultMap>
+    <select id="showSeletedStaffByJobByPage" parameterType="map" resultMap="Staff3">
+        select staff.id sId, staff.name sname, gender, identityId, `from`, org, home, staff.phone sphone, qualif1, qualif2, university, major, enterTime, workType, department.id dId, job.id jId, department.name dname, job.name jname
+        from `staff`,`department`,`job`
+        <where>
+            staff.departmentId = department.id and staff.jobId = job.id
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="jobId != null and jobId != 0">
+                and jobId = #{jobId}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+        order by staff.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <select id="showSeletedStaffByJobByPageCount" parameterType="map" resultType="int">
+        select count(staff.id) from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="jobId != null and jobId != 0">
+                and jobId = #{jobId}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    查询所有入职员工&数量-->
+    <resultMap id="Staff4" type="Staff">
+        <result property="id" column="sId"/>
+        <result property="name" column="sname"/>
+        <result property="phone" column="sphone"/>
+        <association property="departmentId" javaType="Department">
+            <result property="id" column="dId"/>
+            <result property="name" column="dname"/>
+        </association>
+        <association property="jobId" javaType="Job">
+            <result property="id" column="jId"/>
+            <result property="name" column="jname"/>
+        </association>
+    </resultMap>
+    <select id="showEnterStaffByPage" parameterType="map" resultMap="Staff4">
+        select staff.id sId, staff.name sname, gender, identityId, `from`, org, home, staff.phone sphone, qualif1, qualif2, university, major, enterTime, workType, department.id dId, job.id jId, department.name dname, job.name jname
+        from `staff`,`department`,`job`
+        <where>
+            staff.departmentId = department.id and staff.jobId = job.id
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+        order by staff.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <select id="showEnterStaffByPageCount" parameterType="map" resultType="int">
+        select count(staff.id) from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+    </select>
+
+    <!--    查询所有未入职员工&数量-->
+    <select id="showEmployeeByPage" parameterType="map" resultType="Staff">
+        select * from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+        order by staff.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <select id="showEmployeeByPageCount" parameterType="map" resultType="int">
+        select count(staff.id) from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+    </select>
+
+
+    <!--    查询所有试用期员工&数量-->
+
+    <resultMap id="Staff5" type="ProbInfo">
+        <result property="id" column="pId"/>
+        <result property="probBeginTime" column="probBeginTime"/>
+        <result property="probEndTime" column="probEndTime"/>
+        <association property="staffId" javaType="Staff">
+            <id property="id" column="sId"/>
+            <result property="name" column="sname"/>
+            <result property="phone" column="sphone"/>
+            <association property="departmentId" javaType="Department">
+                <id property="id" column="dId"/>
+                <result property="name" column="dname"/>
+            </association>
+            <association property="jobId" javaType="Job">
+                <id property="id" column="jId"/>
+                <result property="name" column="jname"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="showProbStaffByPage" parameterType="map" resultMap="Staff5">
+        select staff.id sId, staff.name sname, gender, identityId, `from`, org, home, staff.phone sphone, qualif1, qualif2, university, major, enterTime, workType,
+        department.id dId, job.id jId, department.name dname, job.name jname, probBeginTime, probEndTime, probinfo.id pId
+        from `staff`,`department`,`job`,`probinfo`
+        <where>
+            staff.departmentId = department.id and staff.jobId = job.id and probinfo.staffId = staff.id
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+        order by staff.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <select id="showProbStaffByPageCount" parameterType="map" resultType="int">
+        select count(staff.id) from `staff`
+        <where>
+            <if test="name != null">
+                and staff.name like #{name}
+            </if>
+            <if test="workType != null and workType != 0">
+                and workType = #{workType}
+            </if>
+            <if test="isEnter != null and isEnter != 0">
+                and isEnter = #{isEnter}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jack.dao.JobDao">
+
+    <!--    开启二级缓存-->
+<!--    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>-->
+
+    <!--    查询所有岗位-->
+    <resultMap id="Job1" type="Job">
+        <result property="id" column="jId"/>
+        <result property="name" column="jname"/>
+        <association property="departmentId" javaType="Department">
+            <result property="id" column="dId"/>
+            <result property="name" column="dname"/>
+        </association>
+    </resultMap>
+    <select id="selectAllJobByPage" parameterType="map" resultMap="Job1">
+        select job.id jId, job.name jname, department.id dId, department.name dname
+        from `job`,`department`
+        <where>
+            job.departmentId = department.id
+            <if test="name != null">
+                and job.name like #{name}
+            </if>
+        </where>
+        order by job.id ASC
+        <if test="start != null and pageSize !=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+
+
+    <!--    查询所有岗位的数量-->
+    <select id="selectAllJobByPageCount" parameterType="map" resultType="int">
+        select count(job.id) from `job`
+        <where>
+            <if test="name != null">
+                and job.name like #{name}
+            </if>
+        </where>
+    </select>
+
+</mapper>
