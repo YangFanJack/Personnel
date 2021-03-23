@@ -48,7 +48,7 @@
     <!--解释 ：https://www.cnblogs.com/jpfss/p/7799806.jsp-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 注入sqlSessionFactory -->
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+<!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
         <!-- 给出需要扫描Dao接口包 -->
         <property name="basePackage" value="com.jack.dao"/>
     </bean>

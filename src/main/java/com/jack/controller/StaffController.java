@@ -19,11 +19,11 @@ import java.util.List;
 @Controller
 public class StaffController {
     @Autowired
-    @Qualifier("StaffServiceImpl")
+    @Qualifier("staffServiceImpl")
     private StaffService staffService;
 
     @Autowired
-    @Qualifier("DepartmentServiceImpl")
+    @Qualifier("departmentServiceImpl")
     private DepartmentService departmentService;
 
     /**

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ManagerController {
     @Autowired
-    @Qualifier("ManagerServiceImpl")
+    @Qualifier("managerServiceImpl")
     private ManagerService managerService;
 
     /**

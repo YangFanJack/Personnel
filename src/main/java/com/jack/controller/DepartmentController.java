@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DepartmentController {
     @Autowired
-    @Qualifier("DepartmentServiceImpl")
+    @Qualifier("departmentServiceImpl")
     private DepartmentService departmentService;
 
     /**

@@ -6,17 +6,18 @@ import com.jack.pojo.PageBean;
 import com.jack.pojo.ProbInfo;
 import com.jack.pojo.Staff;
 import com.jack.service.StaffService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class StaffServiceImpl implements StaffService {
+    @Autowired
     private StaffDao staffDao;
 
-    public void setStaffDao(StaffDao staffDao) {
-        this.staffDao = staffDao;
-    }
 
     /**
      * 新增人才一枚

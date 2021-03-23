@@ -5,17 +5,18 @@ import com.jack.pojo.Department;
 import com.jack.pojo.Job;
 import com.jack.pojo.PageBean;
 import com.jack.service.JobService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class JobServiceImpl implements JobService {
+    @Autowired
     private JobDao jobDao;
 
-    public void setJobDao(JobDao jobDao) {
-        this.jobDao = jobDao;
-    }
 
     /**
      * 添加岗位

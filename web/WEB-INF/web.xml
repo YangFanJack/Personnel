@@ -11,7 +11,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <!--一定要注意:我们这里加载的是总的配置文件，之前被这里坑了！-->
-            <param-value>classpath:applicationContext.xml</param-value>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -19,6 +19,16 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!--全局的初始化参数-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <!--Spring的监听器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <!--encodingFilter:乱码过滤-->
     <filter>

@@ -20,11 +20,11 @@ import java.util.Map;
 @Controller
 public class JobController {
     @Autowired
-    @Qualifier("JobServiceImpl")
+    @Qualifier("jobServiceImpl")
     private JobService jobService;
 
     @Autowired
-    @Qualifier("DepartmentServiceImpl")
+    @Qualifier("departmentServiceImpl")
     private DepartmentService departmentService;
 
     /**

@@ -12,6 +12,7 @@
     <context:property-placeholder location="classpath:database.properties" ignore-unresolvable="true"/>
     <context:property-placeholder location="classpath:log4j.properties" ignore-unresolvable="true"/>
     <context:property-placeholder location="classpath:mail.properties" ignore-unresolvable="true"/>
+
     <!-- 2.数据库连接池 -->
     <!--数据库连接池
         dbcp 半自动化操作 不能自动连接
@@ -23,7 +24,6 @@
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
-
         <!-- c3p0连接池的私有属性 -->
         <property name="maxPoolSize" value="30"/>
         <property name="minPoolSize" value="10"/>
@@ -43,9 +43,7 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
-<!--    相当于替代了实现类去实现了一个sqlSessionTemplate，在之前的spring整合mybatis中已经用到了-->
-    <!-- 4.配置扫描Dao接口包，动态实现Dao接口注入到spring容器中 -->
-    <!--解释 ：https://www.cnblogs.com/jpfss/p/7799806.jsp-->
+    <!--扫描dao配置对象注入:用于替代mybatis文件的扫描包-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>

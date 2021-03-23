@@ -4,17 +4,17 @@ import com.jack.dao.DepartmentDao;
 import com.jack.pojo.Department;
 import com.jack.pojo.PageBean;
 import com.jack.service.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
+    @Autowired
     private DepartmentDao departmentDao;
-
-    public void setDepartmentDao(DepartmentDao departmentDao) {
-        this.departmentDao = departmentDao;
-    }
 
     /**
      * 添加部门
